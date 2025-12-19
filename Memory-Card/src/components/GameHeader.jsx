@@ -1,4 +1,4 @@
-export const GameHeader = (score, moves) => {
+export const GameHeader = ({ score, moves }) => {
   return (
     <div className='game-header'>
       <h1>🎮 Memory Card Game</h1>
