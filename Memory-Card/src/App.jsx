@@ -39,13 +39,32 @@ function App() {
   useEffect(() => {
     initializeGame();
   }, []);
+
+  //Handle Card Click
+  const handleCardClick = (card) => {
+    //Don't allow clicking if the card is already flipped or matched
+    if (card.isFlipped || card.isMatched) {
+      return;
+    }
+
+    //Updating Card flipped state
+    const newCards = cards.map((c) => {
+      if (c.id === card.id) {
+        return { ...c, isFlipped: true };
+      } else {
+        return c;
+      }
+    });
+    setCards(newCards);
+  };
+
   return (
     <div className='app'>
       <GameHeader score={3} moves={10} />
 
       <div className='cards-grid'>
-        {cardValues.map((card) => (
-          <Card card={card} />
+        {cards.map((card) => (
+          <Card key={card.id} card={card} cardClick={handleCardClick} />
         ))}
       </div>
     </div>
