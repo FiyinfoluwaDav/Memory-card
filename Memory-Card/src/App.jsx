@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card } from './components/Card';
 import { GameHeader } from './components/GameHeader';
+import { WinMessage } from './components/WinMessage';
 
 const cardValues = [
   '🍇',
@@ -128,9 +129,11 @@ function App() {
     setMoves((prev) => prev + 1);
   };
 
+  const isGameComplete = matchedCards.length === cardValues.length;
   return (
     <div className='app'>
       <GameHeader score={score} moves={moves} onReset={initializeGame} />
+      {isGameComplete && <WinMessage moves={moves} />}
 
       <div className='cards-grid'>
         {cards.map((card) => (
