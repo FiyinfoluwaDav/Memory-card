@@ -1,7 +1,9 @@
 export const Card = ({ card, cardClick }) => {
   return (
     <div
-      className={`card ${card.isFlipped ? 'flipped' : ''}`}
+      className={`card ${card.isFlipped ? 'flipped' : ''} ${
+        card.isMatched ? 'matched' : ''
+      }`}
       onClick={() => cardClick(card)}
     >
       <div className='card-front'>?</div>
