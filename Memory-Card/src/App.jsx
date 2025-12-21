@@ -23,9 +23,10 @@ const cardValues = [
 function App() {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
-  const [matchCards, setMatchedCards] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]);
   const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
 
   const initializeGame = () => {
     //Shuffle the cards
@@ -38,6 +39,11 @@ function App() {
     }));
 
     setCards(finalCards);
+    setMoves(0);
+    setScore(0);
+    setMatchedCards([]);
+    setFlippedCards([]);
+    setIsLocked(false);
   };
 
   useEffect(() => {
@@ -47,7 +53,12 @@ function App() {
   //Handle Card Click
   const handleCardClick = (card) => {
     //Don't allow clicking if the card is already flipped or matched
-    if (card.isFlipped || card.isMatched) {
+    if (
+      card.isFlipped ||
+      card.isMatched ||
+      isLocked ||
+      flippedCards.length === 2
+    ) {
       return;
     }
 
@@ -68,19 +79,13 @@ function App() {
     setTimeout(() => {
       //Checking if 2 cards are a match
       if (flippedCards.length === 1) {
+        setIsLocked(true);
         const firstFlippedCard = cards[flippedCards[0]];
 
         if (firstFlippedCard.value === card.value) {
           setTimeout(() => {
             setMatchedCards((prev) => [...prev, firstFlippedCard.id, card.id]);
-            const newMatchedCards = cards.map((c) => {
-              if (c.id === card.id || c.id === firstFlippedCard.id) {
-                return { ...c, isMatched: true };
-              } else {
-                return c;
-              }
-            });
-
+            setScore((prev) => prev + 1);
             setCards((prev) =>
               prev.map((c) => {
                 if (c.id === card.id || c.id === firstFlippedCard.id) {
@@ -91,6 +96,7 @@ function App() {
               })
             );
             setFlippedCards([]);
+            setIsLocked(false);
           }, 500);
 
           //Handling failed matching
@@ -104,6 +110,7 @@ function App() {
             }
           });
           setCards(flippedBackCards);
+          setIsLocked(false);
           setFlippedCards([]);
         }
       }
@@ -113,7 +120,7 @@ function App() {
 
   return (
     <div className='app'>
-      <GameHeader score={score} moves={moves} />
+      <GameHeader score={score} moves={moves} onReset={initializeGame} />
 
       <div className='cards-grid'>
         {cards.map((card) => (
