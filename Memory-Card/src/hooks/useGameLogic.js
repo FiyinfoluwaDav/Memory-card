@@ -42,9 +42,9 @@ export const useGameLogic = (cardValues) => {
 
   //Handle Card Click
   const handleCardClick = (card) => {
-    //Don't allow clicking if the card is already flipped or matched
+    //Don't allow clicking if the card is already flipped, matched or locked
     if (
-      card.isFlipped ||
+      card.isFlipped || 
       card.isMatched ||
       isLocked ||
       flippedCards.length === 2
