@@ -9,9 +9,11 @@ Live Demo: https://memory-card-alpha-seven.vercel.app/
 Place preview images in the `demo/` folder and reference them here. Example files to add to `demo/`:
 
 - `demo/Game_interface.png` — Game board
-- `demo/Game_winner.png` — Win message
 
 ![Game board](Memory-Card/Demo/Game_interface.png)
+
+- `demo/Game_winner.png` — Win message
+
 ![Win message](Memory-Card/Demo/Game_winner.png)
 
 ---
