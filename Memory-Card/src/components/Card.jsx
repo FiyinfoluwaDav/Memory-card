@@ -3,7 +3,7 @@ export const Card = ({ card, cardClick }) => {
     <div
       className={`card ${card.isFlipped ? 'flipped' : ''} ${
         card.isMatched ? 'matched' : ''
-      }`}
+      } ${card.isWrong ? 'mismatch' : ''}`}
       onClick={() => cardClick(card)}
     >
       <div className='card-front'>?</div>

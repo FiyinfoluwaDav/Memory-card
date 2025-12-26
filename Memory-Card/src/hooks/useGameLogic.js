@@ -26,6 +26,7 @@ export const useGameLogic = (cardValues) => {
       value,
       isFlipped: false,
       isMatched: false,
+      isWrong: false,
     }));
 
     setCards(finalCards);
@@ -44,7 +45,7 @@ export const useGameLogic = (cardValues) => {
   const handleCardClick = (card) => {
     //Don't allow clicking if the card is already flipped, matched or locked
     if (
-      card.isFlipped || 
+      card.isFlipped ||
       card.isMatched ||
       isLocked ||
       flippedCards.length === 2
@@ -105,17 +106,31 @@ export const useGameLogic = (cardValues) => {
             setFlippedCards([]);
             setIsLocked(false);
           } else {
-            //Flip back the two cards
-            const flippedBackCards = newCards.map((c) => {
+            // Mark them wrong so UI can show a red flash, then flip back after a short delay
+            const markedWrongCards = newCards.map((c) => {
               if (newFlippedCards.includes(c.id)) {
-                return { ...c, isFlipped: false };
+                return { ...c, isWrong: true };
               } else {
                 return c;
               }
             });
-            setCards(flippedBackCards);
-            setIsLocked(false);
-            setFlippedCards([]);
+
+            setCards(markedWrongCards);
+
+            // Keep input locked while showing the red flash, then flip back
+            setTimeout(() => {
+              const flippedBackCards = markedWrongCards.map((c) => {
+                if (newFlippedCards.includes(c.id)) {
+                  return { ...c, isFlipped: false, isWrong: false };
+                } else {
+                  return c;
+                }
+              });
+
+              setCards(flippedBackCards);
+              setIsLocked(false);
+              setFlippedCards([]);
+            }, 800);
           }
         }
       }
