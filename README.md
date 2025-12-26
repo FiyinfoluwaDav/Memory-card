@@ -11,8 +11,8 @@ Place preview images in the `demo/` folder and reference them here. Example file
 - `demo/screenshot-1.png` — Game board
 - `demo/screenshot-2.png` — Win message
 
-![Game board](demo/screenshot-1.png)
-![Win message](demo/screenshot-2.png)
+![Game board](demo/Game_interface.png)
+![Win message](demo/Game_winner.png)
 
 ---
 
