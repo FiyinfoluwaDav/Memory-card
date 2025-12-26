@@ -99,11 +99,11 @@ body {
 }
 
 .win-message {
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(2, 198, 87, 0.753);
   padding: 30px 50px;
   border-radius: 15px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(2, 144, 63, 0.753);
   border: 1px solid rgba(255, 255, 255, 0.1);
   animation: slideDown 0.5s ease-out;
 }
